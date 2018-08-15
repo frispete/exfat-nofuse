@@ -108,9 +108,9 @@ extern struct timezone sys_tz;
 #define GET_IVERSION(x) (inode_peek_iversion_raw(x))
 #define SET_IVERSION(x,y) (inode_set_iversion(x, y))
 #else
-#define INC_IVERSION(x) (x->i_version++)
-#define GET_IVERSION(x) (x->i_version)
-#define SET_IVERSION(x,y) (x->i_version = y)
+#define INC_IVERSION(x) (atomic64_inc((atomic64_t*) &x->i_version))
+#define GET_IVERSION(x) (atomic64_read((atomic64_t*) &x->i_version))
+#define SET_IVERSION(x,y) (atomic64_set((atomic64_t*) &x->i_version, y))
 #endif
 
 #define CHECK_ERR(x)	BUG_ON(x)
