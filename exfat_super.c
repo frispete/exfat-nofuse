@@ -113,6 +113,11 @@ extern struct timezone sys_tz;
 #define SET_IVERSION(x,y) (atomic64_set((atomic64_t*) &x->i_version, y))
 #endif
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(5,0,0)
+#define SB_RDONLY MS_RDONLY
+#define SB_NODIRATIME MS_NODIRATIME
+#endif
+
 #define CHECK_ERR(x)	BUG_ON(x)
 
 #define UNIX_SECS_1980    315532800L

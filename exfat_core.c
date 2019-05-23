@@ -59,6 +59,10 @@
 #include <linux/blkdev.h>
 #include <linux/slab.h>
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(5,0,0)
+#define SB_RDONLY MS_RDONLY
+#endif
+
 static void __set_sb_dirty(struct super_block *sb)
 {
 #if LINUX_VERSION_CODE < KERNEL_VERSION(3,7,0)
